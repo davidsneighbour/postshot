@@ -32,8 +32,8 @@ async function exists(targetPath: string): Promise<boolean> {
 
 export async function loadTheme(themeRoot: string, themeName: string): Promise<ThemeConfig> {
   const themeDirectory = path.join(themeRoot, themeName);
-  const templatePath = path.join(themeDirectory, 'template.hbs');
-  const stylesheetPath = path.join(themeDirectory, 'theme.css');
+  const templatePath = path.join(themeDirectory, 'post.hbs');
+  const stylesheetPath = path.join(themeDirectory, 'post.css');
   const configPath = path.join(themeDirectory, 'theme.json');
   const assetsDirectoryCandidate = path.join(themeDirectory, 'assets');
 
