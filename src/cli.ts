@@ -83,7 +83,7 @@ interface SocialAdapter {
 }
 
 const DEFAULT_THEME_NAME = 'default';
-const DEFAULT_OUTPUT_FORMAT: OutputFormat = 'png';
+const DEFAULT_OUTPUT_FORMAT: OutputFormat = 'jpg';
 const DEFAULT_WIDTH = 1200;
 const DEFAULT_HEIGHT = 675;
 const DEFAULT_EMBED_ALT_TEXT = true;
