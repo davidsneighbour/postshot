@@ -9,7 +9,7 @@ const adapters: SocialNetworkAdapter[] = [
 ];
 
 export function resolveAdapter(inputUrl: URL): SocialNetworkAdapter {
-  const adapter = adapters.find((candidate) => candidate.canHandleUrl(inputUrl));
+  const adapter = adapters.find((candidate) => candidate.detect(inputUrl.toString()));
 
   if (!adapter) {
     throw new CliError(`No adapter is available for URL: ${inputUrl.toString()}`);

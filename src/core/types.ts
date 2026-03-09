@@ -94,6 +94,29 @@ export interface RenderConfig {
   dryRun: boolean;
 }
 
+export interface AppConfigFile {
+  themeName?: string;
+  outputFormat?: OutputFormat;
+  width?: number;
+  height?: number;
+  aspectRatio?: AspectRatioPreset;
+  network?: SupportedNetwork;
+  backgroundOverride?: string;
+  embedAltText?: boolean;
+  generateAltTextFile?: boolean;
+  debugHtml?: boolean;
+  debugData?: boolean;
+  dryRun?: boolean;
+  themeRoot?: string;
+  outputDirectory?: string;
+}
+
+export interface SocialNetworkAdapter {
+  readonly network: SupportedNetwork;
+  detect(url: string): boolean;
+  fetchPost(url: string): Promise<SocialPostData>;
+}
+
 export interface TemplateRenderData {
   config: RenderConfig;
   post: SocialPostData;

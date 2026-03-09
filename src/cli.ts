@@ -384,15 +384,15 @@ function resolveOptions(
 
   return {
     url,
-    configPath: cliValues.config,
+    ...optionalProp('configPath', cliValues.config),
     themeName,
     outputPath,
     outputFormat,
     width,
     height,
     network,
-    aspectRatio,
-    backgroundOverride,
+    ...optionalProp('aspectRatio', aspectRatio),
+    ...optionalProp('backgroundOverride', backgroundOverride),
     embedAltText,
     generateAltTextFile,
     debugHtml,

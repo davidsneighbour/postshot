@@ -2,6 +2,7 @@ import type {
   LinkCard,
   MediaAttachment,
   SocialMetrics,
+  SocialNetworkAdapter,
   SocialPostData,
 } from '../core/types.js';
 import { optionalProp } from '../core/helpers.js';
@@ -117,7 +118,8 @@ function buildCard(card: MastodonCard | null | undefined): LinkCard | undefined 
   return Object.keys(result).length > 0 ? result : undefined;
 }
 
-export class MastodonAdapter {
+export class MastodonAdapter implements SocialNetworkAdapter {
+  public readonly network = 'mastodon' as const;
   public detect(url: string): boolean {
     try {
       const parsed = new URL(url);
