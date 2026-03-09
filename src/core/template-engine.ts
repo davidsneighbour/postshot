@@ -1,6 +1,15 @@
 import fs from 'node:fs/promises';
 import Handlebars from 'handlebars';
+import type { HelperOptions } from 'handlebars';
 import type { TemplateRenderData } from './types.js';
+
+Handlebars.registerHelper('ifDefined', function ifDefined(this: unknown, value: unknown, options: HelperOptions) {
+  if (value !== undefined && value !== null) {
+    return options.fn(this);
+  }
+
+  return options.inverse(this);
+});
 
 export async function loadTemplate(templatePath: string): Promise<HandlebarsTemplateDelegate> {
   const source = await fs.readFile(templatePath, 'utf8');
