@@ -1,0 +1,75 @@
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--theme-font);
+}
+
+body {
+  background: var(--canvas-background);
+  color: #f8fafc;
+}
+
+.canvas {
+  min-height: 100vh;
+  padding: var(--canvas-padding);
+  display: grid;
+  place-items: center;
+}
+
+.post-card {
+  width: min(100%, var(--card-width));
+  padding: 56px;
+  border-radius: var(--card-radius);
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.96));
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.network-label {
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #93c5fd;
+}
+
+.quote-copy {
+  margin: 24px 0 32px;
+  padding: 0;
+  border: 0;
+  font-size: 2.2rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.quote-footer {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.author {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.handle,
+.meta {
+  color: #94a3b8;
+}

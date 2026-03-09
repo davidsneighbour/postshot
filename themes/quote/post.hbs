@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>{{{themeFontCss}}}
+{{{themeVariableCss}}}
+{{{inlineCss}}}</style>
+  </head>
+  <body class="{{config.theme.bodyClassName}}" style="--canvas-background: {{backgroundCss}}; --card-width: {{config.theme.cardMaxWidth}}px; --canvas-padding: {{config.theme.padding}}px; --card-shadow: {{config.theme.shadow}}; --card-radius: {{config.theme.borderRadius}}px; --theme-font: {{config.theme.fontFamily}};">
+    <main class="canvas">
+      <article class="{{config.theme.postClassName}}" data-post-card="true">
+        <div class="network-label">Quoted from {{post.networkLabel}}</div>
+        <blockquote class="quote-copy">{{post.plainTextContent}}</blockquote>
+        <footer class="quote-footer">
+          <img class="avatar" src="{{post.author.avatarUrl}}" alt="">
+          <div>
+            <div class="author">{{post.author.displayName}}</div>
+            <div class="handle">@{{post.author.acct}}</div>
+          </div>
+          <div class="meta">{{post.createdAtLabel}}</div>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>

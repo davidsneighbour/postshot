@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{post.networkLabel}} post screenshot</title>
+    <style>{{{inlineCss}}}</style>
+  </head>
+  <body class="{{config.theme.bodyClassName}}" style="--background: {{backgroundCss}}; --font-family: {{config.theme.fontFamily}}; --card-max-width: {{config.theme.cardMaxWidth}}px; --page-padding: {{config.theme.padding}}px; --card-radius: {{config.theme.borderRadius}}px; --card-shadow: {{config.theme.shadow}};">
+    <main class="canvas">
+      <article class="post-card" data-post-card="true" data-network="{{post.network}}">
+        <header class="post-card__header">
+          <div class="post-card__identity">
+            <img class="post-card__avatar" src="{{post.author.avatarUrl}}" alt="Avatar of {{post.author.displayName}}">
+            <div class="post-card__meta">
+              <div class="post-card__display-row">
+                <strong class="post-card__display-name">{{post.author.displayName}}</strong>
+                <span class="post-card__network-pill">{{post.networkLabel}}</span>
+              </div>
+              <div class="post-card__acct-row">
+                <span>@{{post.author.acct}}</span>
+                <span>•</span>
+                <span>{{post.createdAtLabel}}</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {{#ifDefined post.spoilerText}}
+          <section class="post-card__spoiler">
+            <strong>Content warning</strong>
+            <p>{{post.spoilerText}}</p>
+          </section>
+        {{/ifDefined}}
+
+        <section class="post-card__content">{{{post.htmlContent}}}</section>
+
+        {{#if post.media.length}}
+          <section class="post-card__media-grid post-card__media-grid--{{post.media.length}}">
+            {{#each post.media}}
+              <figure class="post-card__media-item">
+                <img src="{{#ifDefined previewUrl}}{{previewUrl}}{{else}}{{url}}{{/ifDefined}}" alt="{{#ifDefined description}}{{description}}{{else}}Media attachment{{/ifDefined}}">
+                {{#ifDefined description}}
+                  <figcaption>{{description}}</figcaption>
+                {{/ifDefined}}
+              </figure>
+            {{/each}}
+          </section>
+        {{/if}}
+
+        {{#if post.card}}
+          <section class="post-card__link-card">
+            {{#ifDefined post.card.image}}
+              <img class="post-card__link-card-image" src="{{post.card.image}}" alt="Linked preview image">
+            {{/ifDefined}}
+            <div class="post-card__link-card-copy">
+              {{#ifDefined post.card.title}}<strong>{{post.card.title}}</strong>{{/ifDefined}}
+              {{#ifDefined post.card.description}}<p>{{post.card.description}}</p>{{/ifDefined}}
+              {{#ifDefined post.card.url}}<span>{{post.card.url}}</span>{{/ifDefined}}
+            </div>
+          </section>
+        {{/if}}
+
+        <footer class="post-card__metrics">
+          <div class="post-card__metric">
+            <span class="post-card__metric-label">Replies</span>
+            <strong>{{post.metrics.repliesCount}}</strong>
+          </div>
+          <div class="post-card__metric">
+            <span class="post-card__metric-label">Boosts</span>
+            <strong>{{post.metrics.reblogsCount}}</strong>
+          </div>
+          <div class="post-card__metric">
+            <span class="post-card__metric-label">Favourites</span>
+            <strong>{{post.metrics.favouritesCount}}</strong>
+          </div>
+          {{#ifDefined post.metrics.bookmarksCount}}
+            <div class="post-card__metric">
+              <span class="post-card__metric-label">Bookmarks</span>
+              <strong>{{post.metrics.bookmarksCount}}</strong>
+            </div>
+          {{/ifDefined}}
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>

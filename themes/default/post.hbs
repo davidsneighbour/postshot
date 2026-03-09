@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>{{{themeFontCss}}}
+{{{themeVariableCss}}}
+{{{inlineCss}}}</style>
+  </head>
+  <body class="{{config.theme.bodyClassName}}" style="--canvas-background: {{backgroundCss}}; --card-width: {{config.theme.cardMaxWidth}}px; --canvas-padding: {{config.theme.padding}}px; --card-shadow: {{config.theme.shadow}}; --card-radius: {{config.theme.borderRadius}}px; --theme-font: {{config.theme.fontFamily}};">
+    <main class="canvas">
+      <article class="{{config.theme.postClassName}}" data-post-card="true">
+        <header class="post-header">
+          <div class="author-block">
+            <img class="avatar" src="{{post.author.avatarUrl}}" alt="">
+            <div>
+              <div class="author-name-row">
+                <strong class="author-name">{{post.author.displayName}}</strong>
+                <span class="network-pill">{{post.networkLabel}}</span>
+              </div>
+              <div class="author-handle">@{{post.author.acct}}</div>
+            </div>
+          </div>
+          <div class="date">{{post.createdAtLabel}}</div>
+        </header>
+
+        {{#ifDefined post.spoilerText}}
+          <section class="spoiler">CW: {{post.spoilerText}}</section>
+        {{/ifDefined}}
+
+        <section class="post-body">{{{post.htmlContent}}}</section>
+
+        {{#if post.media.length}}
+          <section class="media-grid media-count-{{post.media.length}}">
+            {{#each post.media}}
+              <figure class="media-card">
+                <img src="{{previewUrl}}" alt="{{description}}">
+                {{#ifDefined description}}
+                  <figcaption>{{description}}</figcaption>
+                {{/ifDefined}}
+              </figure>
+            {{/each}}
+          </section>
+        {{/if}}
+
+        {{#if post.card}}
+          <section class="link-card">
+            {{#ifDefined post.card.image}}
+              <img class="link-card-image" src="{{post.card.image}}" alt="">
+            {{/ifDefined}}
+            <div class="link-card-copy">
+              <div class="link-card-title">{{post.card.title}}</div>
+              <div class="link-card-description">{{post.card.description}}</div>
+              <div class="link-card-url">{{post.card.url}}</div>
+            </div>
+          </section>
+        {{/if}}
+
+        <footer class="post-footer">
+          <span>💬 {{post.metrics.repliesCount}}</span>
+          <span>🔁 {{post.metrics.reblogsCount}}</span>
+          <span>⭐ {{post.metrics.favouritesCount}}</span>
+          {{#ifDefined post.metrics.bookmarksCount}}
+            <span>🔖 {{post.metrics.bookmarksCount}}</span>
+          {{/ifDefined}}
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>

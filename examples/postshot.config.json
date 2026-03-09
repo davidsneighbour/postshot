@@ -1,0 +1,21 @@
+{
+  "defaults": {
+    "outputFormat": "png",
+    "width": 1600,
+    "aspectRatio": "4:5",
+    "locale": "en-GB",
+    "timezone": "UTC",
+    "embedAltText": true,
+    "writeAltTextSidecar": true,
+    "dryRun": false
+  },
+  "theme": {
+    "name": "default",
+    "backgroundType": "gradient",
+    "gradientFrom": "#101418",
+    "gradientTo": "#1e293b",
+    "gradientAngle": 145,
+    "cardMaxWidth": 920,
+    "padding": 72
+  }
+}

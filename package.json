@@ -1,0 +1,31 @@
+{
+  "name": "postshot",
+  "version": "0.2.0",
+  "description": "Create styled screenshots of social media posts using network adapters and reusable HTML/CSS themes.",
+  "type": "module",
+  "bin": {
+    "postshot": "./dist/cli.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node ./scripts/copy-assets.mjs",
+    "dev": "tsx src/cli.ts --help",
+    "check": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "commander": "14.0.3",
+    "handlebars": "4.7.8",
+    "playwright": "1.58.2",
+    "png-chunk-text": "1.0.0",
+    "png-chunks-encode": "1.0.0",
+    "png-chunks-extract": "1.0.0",
+    "sharp": "0.34.5"
+  },
+  "devDependencies": {
+    "@types/node": "25.4.0",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3"
+  }
+}

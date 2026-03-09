@@ -1,0 +1,38 @@
+import fs from 'node:fs/promises';
+import Handlebars from 'handlebars';
+import type { TemplateRenderData } from './types.js';
+
+export async function loadTemplate(templatePath: string): Promise<HandlebarsTemplateDelegate> {
+  const source = await fs.readFile(templatePath, 'utf8');
+  return Handlebars.compile(source);
+}
+
+export async function loadStylesheet(stylesheetPath: string): Promise<string> {
+  return fs.readFile(stylesheetPath, 'utf8');
+}
+
+export function buildFontCss(fonts: {
+  body: string;
+  heading: string;
+  monospace: string;
+}): string {
+  return [
+    `--postshot-font-body: ${fonts.body};`,
+    `--postshot-font-heading: ${fonts.heading};`,
+    `--postshot-font-monospace: ${fonts.monospace};`,
+  ].join('\n');
+}
+
+export function buildVariableCss(variables: Record<string, string>): string {
+  return Object.entries(variables)
+    .map(([key, value]) => `${key}: ${value};`)
+    .join('\n');
+}
+
+export async function renderTemplate(
+  templatePath: string,
+  data: TemplateRenderData
+): Promise<string> {
+  const template = await loadTemplate(templatePath);
+  return template(data);
+}
