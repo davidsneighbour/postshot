@@ -2,7 +2,7 @@
 
 A TypeScript CLI that turns social media post URLs into branded image cards.
 
-The current implementation supports Mastodon and includes a Bluesky adapter scaffold for the same rendering pipeline. The architecture is designed so that future adapters can plug into the same normalised post model, theming system, config loader, and metadata pipeline.
+The current implementation supports Mastodon. The architecture is designed so that future adapters can plug into the same normalised post model, theming system, config loader, and metadata pipeline.
 
 ## Features
 
@@ -41,7 +41,6 @@ postshot/
 │   └── postshot.config.json
 ├── src/
 │   ├── adapters/
-│   │   ├── bluesky-adapter.ts
 │   │   └── mastodon-adapter.ts
 │   ├── config/
 │   │   └── load-config.ts
@@ -282,10 +281,6 @@ It maps the following into the internal post model:
 
 This is the most robust approach for Mastodon because it avoids brittle DOM scraping for the primary content model.
 
-## Bluesky scaffold
-
-A Bluesky adapter scaffold is included so the same render pipeline can later support AT Protocol sources. It currently recognises Bluesky URLs and returns a clear not-yet-implemented error.
-
 ## ALT text and metadata
 
 `postshot` generates ALT text from the normalised post data.
@@ -302,7 +297,7 @@ Metadata support differs by viewer and platform, so the sidecar file remains use
 ## ToDo
 
 * [ ] Add authenticated/private post retrieval support where platform APIs and user tokens allow it.
-* [ ] Implement a real Bluesky fetcher via AT Protocol APIs.
+* [ ] Implement a Bluesky fetcher via AT Protocol APIs.
 * [ ] Add theme listing and preview subcommands.
 * [ ] Add optional config initialisation command.
 * [ ] Improve metadata verification across image viewers and publishing pipelines.

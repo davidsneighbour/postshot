@@ -6,7 +6,6 @@ import process from 'node:process';
 import { parseArgs } from 'node:util';
 
 import { MastodonAdapter } from './adapters/mastodon-adapter.js';
-import { BlueskyAdapter } from './adapters/bluesky-adapter.js';
 import { embedAltTextIfPossible, generateAltText, writeAltTextSidecar } from './core/alt-text.js';
 import { optionalProp } from './core/helpers.js';
 import { renderPostImage, writeRenderedImage } from './core/render.js';
@@ -97,7 +96,7 @@ const DEFAULT_THEME_ROOT = path.resolve(process.cwd(), 'themes');
 const DEFAULT_OUTPUT_DIRECTORY = path.resolve(process.cwd(), 'output');
 
 const SUPPORTED_OUTPUT_FORMATS = new Set<OutputFormat>(['png', 'jpg', 'webp']);
-const SUPPORTED_NETWORKS = new Set<SupportedNetwork>(['mastodon', 'bluesky']);
+const SUPPORTED_NETWORKS = new Set<SupportedNetwork>(['mastodon']);
 const SUPPORTED_ASPECT_RATIOS = new Set<AspectRatioPreset>(['1:1', '4:5', '16:9', '9:16', '3:2']);
 
 function printHelp(): void {
@@ -118,7 +117,7 @@ Options:
   --width <px>                Output width in pixels (default: ${DEFAULT_WIDTH})
   --height <px>               Output height in pixels (default: ${DEFAULT_HEIGHT})
   --ratio <ratio>             1:1 | 4:5 | 16:9 | 9:16 | 3:2
-  --network <name>            mastodon | bluesky
+  --network <name>            mastodon
   --background <css>          CSS background override
   --embed-alt-text            Embed ALT text when supported
   --no-embed-alt-text         Disable ALT text embedding
@@ -470,7 +469,6 @@ async function main(): Promise<void> {
 
   const adapters = new Map<SupportedNetwork, SocialAdapter>([
     ['mastodon', new MastodonAdapter()],
-    ['bluesky', new BlueskyAdapter()],
   ]);
 
   const configFile = await readConfigFile(values.config, values.verbose ?? DEFAULT_VERBOSE);

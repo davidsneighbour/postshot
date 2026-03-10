@@ -1,4 +1,4 @@
-export type SupportedNetwork = 'mastodon' | 'bluesky';
+export type SupportedNetwork = 'mastodon';
 
 export type OutputFormat = 'png' | 'jpg' | 'webp';
 
