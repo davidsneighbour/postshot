@@ -139,28 +139,29 @@ node ./dist/cli.js   --url "https://mas.to/@Daojoan@mastodon.social/116181703584
 
 ## CLI options
 
-| Option | Purpose | Default source |
-| --- | --- | --- |
-| `--url <url>` | Post URL to render | required |
-| `--config <file>` | Path to a JSON config file | auto-detect |
-| `--output <file>` | Output image path | derived from URL |
-| `--format <png|jpg|webp>` | Image format | config or `png` |
-| `--width <pixels>` | Output width | config or `1600` |
-| `--height <pixels>` | Output height | config or `0` |
-| `--aspect-ratio <preset>` | Ratio preset: `1:1`, `4:5`, `16:9`, `9:16`, `3:2`, `2:3` | config or unset |
-| `--theme <name>` | Theme identifier | config or `default` |
-| `--background-type <solid|gradient>` | Background strategy | config or theme |
-| `--background-color <color>` | Solid colour fallback | config or theme |
-| `--gradient-from <color>` | Gradient start | config or theme |
-| `--gradient-to <color>` | Gradient end | config or theme |
-| `--gradient-angle <degrees>` | Gradient angle | config or theme |
-| `--card-max-width <pixels>` | Maximum card width | config or theme |
-| `--padding <pixels>` | Outer canvas padding | config or theme |
-| `--locale <locale>` | Date formatting locale | config or `en-GB` |
-| `--timezone <timezone>` | Date formatting timezone | config or `UTC` |
-| `--embed-alt-text` / `--no-embed-alt-text` | Enable or disable metadata embedding | config or enabled |
-| `--write-alt-text-sidecar` / `--no-write-alt-text-sidecar` | Enable or disable `file.alt.txt` output | config or enabled |
-| `--dry-run` | Fetch and print normalised data only | config or disabled |
+| Option                                                     | Purpose                                                  | Default source      |
+| ---------------------------------------------------------- | -------------------------------------------------------- | ------------------- |
+| `--url <url>`                                              | Post URL to render                                       | required            |
+| `--config <file>`                                          | Path to a JSON config file                               | auto-detect         |
+| `--output <file>`                                          | Output image path                                        | derived from URL    |
+| `--outputPath <file>`                                      | Output folder                                            | ourput              |
+| `--format <png\|jpg\|webp>`                                | Image format                                             | config or `jpg`     |
+| `--width <pixels>`                                         | Output width                                             | config or `1600`    |
+| `--height <pixels>`                                        | Output height                                            | config or `0`       |
+| `--aspect-ratio <preset>`                                  | Ratio preset: `1:1`, `4:5`, `16:9`, `9:16`, `3:2`, `2:3` | config or unset     |
+| `--theme <name>`                                           | Theme identifier                                         | config or `default` |
+| `--background-type <solid\|gradient>`                      | Background strategy                                      | config or theme     |
+| `--background-color <color>`                               | Solid colour fallback                                    | config or theme     |
+| `--gradient-from <color>`                                  | Gradient start                                           | config or theme     |
+| `--gradient-to <color>`                                    | Gradient end                                             | config or theme     |
+| `--gradient-angle <degrees>`                               | Gradient angle                                           | config or theme     |
+| `--card-max-width <pixels>`                                | Maximum card width                                       | config or theme     |
+| `--padding <pixels>`                                       | Outer canvas padding                                     | config or theme     |
+| `--locale <locale>`                                        | Date formatting locale                                   | config or `en-GB`   |
+| `--timezone <timezone>`                                    | Date formatting timezone                                 | config or `UTC`     |
+| `--embed-alt-text` / `--no-embed-alt-text`                 | Enable or disable metadata embedding                     | config or enabled   |
+| `--write-alt-text-sidecar` / `--no-write-alt-text-sidecar` | Enable or disable `file.alt.txt` output                  | config or enabled   |
+| `--dry-run`                                                | Fetch and print normalised data only                     | config or disabled  |
 
 ## Theme system
 
@@ -300,8 +301,9 @@ Metadata support differs by viewer and platform, so the sidecar file remains use
 
 ## ToDo
 
-* Add authenticated/private post retrieval support where platform APIs and user tokens allow it.
-* Implement a real Bluesky fetcher via AT Protocol APIs.
-* Add theme listing and preview subcommands.
-* Add optional config initialisation command.
-* Improve metadata verification across image viewers and publishing pipelines.
+* [ ] Add authenticated/private post retrieval support where platform APIs and user tokens allow it.
+* [ ] Implement a real Bluesky fetcher via AT Protocol APIs.
+* [ ] Add theme listing and preview subcommands.
+* [ ] Add optional config initialisation command.
+* [ ] Improve metadata verification across image viewers and publishing pipelines.
+* [ ] Tailwind integration for themes

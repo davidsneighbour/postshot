@@ -23,6 +23,7 @@ interface CliValues {
   config?: string;
   theme?: string;
   output?: string;
+  'output-path'?: string;
   format?: string;
   width?: string;
   height?: string;
@@ -93,7 +94,7 @@ const DEFAULT_DEBUG_DATA = false;
 const DEFAULT_DRY_RUN = false;
 const DEFAULT_VERBOSE = false;
 const DEFAULT_THEME_ROOT = path.resolve(process.cwd(), 'themes');
-const DEFAULT_OUTPUT_DIRECTORY = process.cwd();
+const DEFAULT_OUTPUT_DIRECTORY = path.resolve(process.cwd(), 'output');
 
 const SUPPORTED_OUTPUT_FORMATS = new Set<OutputFormat>(['png', 'jpg', 'webp']);
 const SUPPORTED_NETWORKS = new Set<SupportedNetwork>(['mastodon', 'bluesky']);
@@ -112,6 +113,7 @@ Options:
   --config <file>             Path to JSON config file
   --theme <name>              Theme name (default: ${DEFAULT_THEME_NAME})
   --output <file>             Output file path
+  --output-path <file>        Output file path (alias for --output)
   --format <format>           png | jpg | webp (default: ${DEFAULT_OUTPUT_FORMAT})
   --width <px>                Output width in pixels (default: ${DEFAULT_WIDTH})
   --height <px>               Output height in pixels (default: ${DEFAULT_HEIGHT})
@@ -258,6 +260,18 @@ function resolveOutputPath(defaultOutputPath: string, outputOption: string | und
   return defaultOutputPath;
 }
 
+function resolveOutputOption(cliValues: CliValues): string | undefined {
+  if (isNonEmptyString(cliValues.output)) {
+    return cliValues.output;
+  }
+
+  if (isNonEmptyString(cliValues['output-path'])) {
+    return cliValues['output-path'];
+  }
+
+  return undefined;
+}
+
 async function readConfigFile(configPath: string | undefined, verbose: boolean): Promise<ConfigFileData> {
   if (!configPath) {
     return {};
@@ -380,7 +394,7 @@ function resolveOptions(
     DEFAULT_OUTPUT_DIRECTORY;
 
   const defaultOutputPath = buildDefaultOutputPath(outputDirectory, network, outputFormat);
-  const outputPath = resolveOutputPath(defaultOutputPath, cliValues.output);
+  const outputPath = resolveOutputPath(defaultOutputPath, resolveOutputOption(cliValues));
 
   return {
     url,
@@ -411,6 +425,7 @@ function parseCliArguments(argv: string[]): { values: CliValues; positionals: st
       config: { type: 'string' },
       theme: { type: 'string' },
       output: { type: 'string' },
+      'output-path': { type: 'string' },
       format: { type: 'string' },
       width: { type: 'string' },
       height: { type: 'string' },
