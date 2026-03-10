@@ -4,6 +4,7 @@ import type { ThemeConfig } from './types.js';
 import { optionalProp } from './helpers.js';
 
 interface ThemeFileConfig {
+  tailwind?: boolean;
   postClassName?: string;
   bodyClassName?: string;
   background?: {
@@ -62,6 +63,7 @@ export async function loadTheme(themeRoot: string, themeName: string): Promise<T
     templatePath,
     stylesheetPath,
     ...optionalProp('assetsDirectory', hasAssetsDirectory ? assetsDirectoryCandidate : undefined),
+    tailwind: fileConfig.tailwind ?? false,
     postClassName: fileConfig.postClassName ?? 'postshot-post',
     bodyClassName: fileConfig.bodyClassName ?? 'postshot-body',
     background: {

@@ -28,6 +28,16 @@ function buildBackgroundCss(config: RenderConfig, theme: ThemeConfig): string {
   return theme.background.color;
 }
 
+function injectTailwindCdn(html: string): string {
+  const tailwindCdnScript = '<script src="https://cdn.tailwindcss.com"></script>';
+
+  if (html.includes('</head>')) {
+    return html.replace('</head>', `${tailwindCdnScript}</head>`);
+  }
+
+  return `${tailwindCdnScript}${html}`;
+}
+
 function mapScreenshotType(format: OutputFormat): 'png' | 'jpeg' {
   return format === 'jpg' ? 'jpeg' : 'png';
 }
@@ -67,17 +77,19 @@ export async function renderPostImage(
     post,
     nowIso: new Date().toISOString(),
     backgroundCss: buildBackgroundCss(config, theme),
+    tailwindCss: '',
     inlineCss,
     themeFontCss: buildFontCss(theme.fonts),
     themeVariableCss: buildVariableCss(theme.variables),
   };
 
   const html = await renderTemplate(theme.templatePath, templateData);
+  const htmlWithTailwind = theme.tailwind ? injectTailwindCdn(html) : html;
 
   if (config.debugHtml) {
     const htmlPath = `${config.outputPath}.debug.html`;
     await ensureDirectoryForFile(htmlPath);
-    await fs.writeFile(htmlPath, html, 'utf8');
+    await fs.writeFile(htmlPath, htmlWithTailwind, 'utf8');
   }
 
   const browser = await chromium.launch({
@@ -93,9 +105,14 @@ export async function renderPostImage(
       deviceScaleFactor: 2,
     });
 
-    await page.setContent(html, {
+    await page.setContent(htmlWithTailwind, {
       waitUntil: 'networkidle',
     });
+
+    if (theme.tailwind) {
+      await page.waitForFunction(() => Boolean((window as { tailwind?: unknown }).tailwind));
+      await page.waitForTimeout(250);
+    }
 
     const screenshotBuffer = await page.screenshot({
       type: mapScreenshotType(config.outputFormat),

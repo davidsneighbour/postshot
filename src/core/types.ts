@@ -70,6 +70,7 @@ export interface ThemeConfig {
   templatePath: string;
   stylesheetPath: string;
   assetsDirectory?: string;
+  tailwind: boolean;
   postClassName: string;
   bodyClassName: string;
   background: ThemeBackground;
@@ -122,6 +123,7 @@ export interface TemplateRenderData {
   post: SocialPostData;
   nowIso: string;
   backgroundCss: string;
+  tailwindCss: string;
   inlineCss: string;
   themeFontCss: string;
   themeVariableCss: string;

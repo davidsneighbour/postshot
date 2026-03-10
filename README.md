@@ -198,6 +198,7 @@ A theme can define:
 * `templateFile`
 * `stylesheetFile`
 * `assetsDirectory`
+* `tailwind` (optional, `true` to enable Tailwind utility classes in your `post.hbs` layout)
 * `postClassName`
 * `bodyClassName`
 * `background`
@@ -216,6 +217,7 @@ Example:
   "templateFile": "post.hbs",
   "stylesheetFile": "post.css",
   "assetsDirectory": "assets",
+  "tailwind": true,
   "background": {
     "type": "gradient",
     "gradientFrom": "#101418",
