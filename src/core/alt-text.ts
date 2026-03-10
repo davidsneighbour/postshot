@@ -3,6 +3,7 @@ import extractChunks from 'png-chunks-extract';
 import encodeChunks from 'png-chunks-encode';
 import pngChunkText from 'png-chunk-text';
 import type { OutputFormat, SocialPostData } from './types.js';
+import { ensureParentDirectory } from '../utils/fs.js';
 
 function normaliseWhitespace(value: string): string {
   return value.replace(/\s+/g, ' ').trim();
@@ -51,7 +52,9 @@ export function generateAltText(post: SocialPostData): string {
 }
 
 export async function writeAltTextSidecar(outputPath: string, altText: string): Promise<void> {
-  await fs.writeFile(`${outputPath}.alt.txt`, `${altText}\n`, 'utf8');
+  const altTextPath = `${outputPath}.alt.txt`;
+  await ensureParentDirectory(altTextPath);
+  await fs.writeFile(altTextPath, `${altText}\n`, 'utf8');
 }
 
 export function embedAltTextInPngBuffer(buffer: Buffer, altText: string): Buffer {
