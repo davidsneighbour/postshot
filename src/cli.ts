@@ -62,6 +62,7 @@ interface ResolvedOptions {
   configPath?: string;
   themeName: string;
   outputPath: string;
+  defaultOutputPath: string;
   outputFormat: OutputFormat;
   width: number;
   height: number;
@@ -400,6 +401,7 @@ function resolveOptions(
     ...optionalProp('configPath', cliValues.config),
     themeName,
     outputPath,
+    defaultOutputPath,
     outputFormat,
     width,
     height,
@@ -485,6 +487,16 @@ async function main(): Promise<void> {
 
   logVerbose(options.verbose, `Fetching post data from ${options.url}`);
   const post = await adapter.fetchPost(options.url);
+
+  // If the CLI did not receive an explicit output path and we're using the
+  // generated default (timestamped) filename, replace it with the
+  // `postshot-NETWORK-POSTID.extension` format.
+  if (options.outputPath === options.defaultOutputPath) {
+    const dir = path.dirname(options.outputPath);
+    const fileName = `postshot-${options.network}-${post.id}.${getDefaultExtension(options.outputFormat)}`;
+    options.outputPath = path.resolve(dir, fileName);
+    logVerbose(options.verbose, `Using generated output filename: ${options.outputPath}`);
+  }
 
   if (options.debugData) {
     logVerbose(options.verbose, 'Writing debug JSON');
