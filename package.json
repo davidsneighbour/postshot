@@ -1,5 +1,5 @@
 {
-  "name": "postshot",
+  "name": "@davidsneighbour/postshot",
   "version": "0.2.0",
   "description": "Create styled screenshots of social media posts using network adapters and reusable HTML/CSS themes.",
   "type": "module",
