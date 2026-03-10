@@ -6,6 +6,7 @@ import type {
   SocialPostData,
 } from '../core/types.js';
 import { optionalProp } from '../core/helpers.js';
+import util from 'node:util'
 
 interface MastodonAccount {
   id: string;
@@ -147,6 +148,15 @@ export class MastodonAdapter implements SocialNetworkAdapter {
 
     const media: MediaAttachment[] = status.media_attachments.map(buildMediaAttachment);
     const card = buildCard(status.card);
+
+    console.log(
+      util.inspect(status, {
+        depth: null,
+        colors: true,
+        compact: false,
+        sorted: true,
+      })
+    );
 
     return {
       network: 'mastodon',

@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import Handlebars from 'handlebars';
+import moment from 'moment';
 import type { HelperOptions } from 'handlebars';
 import type { TemplateRenderData } from './types.js';
 
@@ -9,6 +10,16 @@ Handlebars.registerHelper('ifDefined', function ifDefined(this: unknown, value: 
   }
 
   return options.inverse(this);
+});
+
+Handlebars.registerHelper('dateFormat', function dateFormat(this: unknown, context: unknown, options: HelperOptions) {
+  const format = (options && (options.hash as any)?.format) || 'MMM DD, YYYY';
+  try {
+    const m = moment(context as any);
+    return (m && typeof m.isValid === 'function' && m.isValid()) ? m.format(format) : String(context ?? '');
+  } catch (err) {
+    return String(context ?? '');
+  }
 });
 
 export async function loadTemplate(templatePath: string): Promise<HandlebarsTemplateDelegate> {
