@@ -12,7 +12,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && node ./scripts/copy-assets.mjs",
     "dev": "tsx src/cli.ts --help",
-    "check": "tsc -p tsconfig.json --noEmit"
+    "check": "tsc -p tsconfig.json --noEmit",
+    "publish:local": "node ./scripts/publish.mjs"
   },
   "dependencies": {
     "commander": "14.0.3",

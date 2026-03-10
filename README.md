@@ -72,6 +72,37 @@ npx playwright install chromium
 npm run build
 ```
 
+## Publishing
+
+### Local CLI publish
+
+Use the built-in publish script when you want to publish manually from your machine:
+
+```bash
+NPM_TOKEN=your_npm_token npm run publish:local
+```
+
+Notes:
+
+* `NPM_TOKEN` (or `NODE_AUTH_TOKEN`) is required.
+* The script verifies auth with `npm whoami`, runs `npm run build`, then publishes with `npm publish --access public`.
+
+### GitHub Actions publish on tags
+
+This repository includes `.github/workflows/publish.yml` to automatically publish on tag pushes matching `v*` (for example `v0.3.0`).
+
+Setup required:
+
+1. Add an npm automation token as repository secret: `NPM_TOKEN`.
+2. Push a version tag:
+
+```bash
+git tag v0.3.0
+git push origin v0.3.0
+```
+
+The workflow installs dependencies, builds, and publishes to npm with provenance enabled.
+
 ## Config file support
 
 The tool looks for a config file in this order:
