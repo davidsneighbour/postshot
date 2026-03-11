@@ -28,7 +28,7 @@ if (!shouldCommit) {
 
 const releaseCommand = [
   'npx release-it',
-  '--config .release-it.local.json',
+  '--config .release-it.local.ts',
   ...(shouldCommit ? [] : ['--no-git.commit', '--no-git.tag']),
   ...process.argv.slice(2)
 ].join(' ');
