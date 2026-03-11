@@ -11,7 +11,8 @@ export default {
     "publish": false
   },
   "github": {
-    "release": true
+    "release": true,
+    "web": true
   },
   "hooks": {
     "before:init": "npm run check && npm run build"
