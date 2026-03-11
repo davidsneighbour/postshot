@@ -1,0 +1,14 @@
+{
+  "git": {
+    "push": false,
+    "tag": false,
+    "requireCleanWorkingDir": false,
+    "commitMessage": "chore(release): v${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "hooks": {
+    "before:init": "npm run check && npm run build"
+  }
+}

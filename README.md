@@ -1,4 +1,4 @@
-# postshot
+# @davidsneighbour/postshot
 
 A TypeScript CLI that turns social media post URLs into branded image cards.
 
@@ -23,7 +23,7 @@ The current implementation supports Mastodon. The architecture is designed so th
 
 ## Architecture
 
-The tool is split into clear layers:
+The tool is split into layers:
 
 * *Adapter layer*: fetches and normalises a post from a network into `SocialPostData`.
 * *Theme layer*: provides HTML/CSS templates and theme defaults.
@@ -32,37 +32,6 @@ The tool is split into clear layers:
 * *Config layer*: loads defaults from JSON and merges CLI overrides on top.
 
 That means a future `XAdapter`, `ThreadsAdapter`, `LinkedInAdapter`, or `RedditAdapter` only needs to return the same internal data shape. Rendering and metadata can remain unchanged.
-
-## Project structure
-
-```text
-postshot/
-├── examples/
-│   └── postshot.config.json
-├── src/
-│   ├── adapters/
-│   │   └── mastodon-adapter.ts
-│   ├── config/
-│   │   └── load-config.ts
-│   ├── core/
-│   │   ├── adapters.ts
-│   │   ├── alt-text.ts
-│   │   ├── render.ts
-│   │   ├── template-engine.ts
-│   │   ├── theme.ts
-│   │   └── types.ts
-│   └── cli.ts
-├── themes/
-│   ├── default/
-│   │   ├── post.css
-│   │   ├── post.hbs
-│   │   └── theme.json
-│   └── quote/
-│       ├── post.css
-│       ├── post.hbs
-│       └── theme.json
-└── README.md
-```
 
 ## Installation
 
@@ -86,6 +55,37 @@ Notes:
 
 * `NPM_TOKEN` (or `NODE_AUTH_TOKEN`) is required.
 * The script verifies auth with `npm whoami`, runs `npm run build`, then publishes with `npm publish --access public`.
+
+### Local release process (without publishing)
+
+This project includes a local release flow backed by [`@davidsneighbour/release-config`](https://www.npmjs.com/package/@davidsneighbour/release-config).
+
+```bash
+npm run release:local
+```
+
+What it does:
+
+* Runs `npm run check` and `npm run build` before release init.
+* Uses `.release-it.local.json` which extends `@davidsneighbour/release-config`.
+* Keeps everything local (`git push` and `npm publish` are disabled).
+* Uses **conditional commits**:
+  * clean working tree (default `RELEASE_COMMIT=auto`): release commit is created.
+  * dirty working tree: release commit/tag is skipped automatically.
+  * override behavior with `RELEASE_COMMIT=always` or `RELEASE_COMMIT=never`.
+
+Examples:
+
+```bash
+# default conditional behavior
+npm run release:local
+
+# force creating a release commit/tag even when tree is dirty
+RELEASE_COMMIT=always npm run release:local
+
+# always skip release commit/tag
+RELEASE_COMMIT=never npm run release:local
+```
 
 ### GitHub Actions publish on tags
 

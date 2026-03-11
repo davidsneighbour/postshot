@@ -13,7 +13,8 @@
     "build": "tsc -p tsconfig.json && node ./scripts/copy-assets.mjs",
     "dev": "tsx src/cli.ts --help",
     "check": "tsc -p tsconfig.json --noEmit",
-    "publish:local": "node ./scripts/publish.mjs"
+    "publish:local": "node ./scripts/publish.mjs",
+    "release:local": "node ./scripts/release-local.mjs"
   },
   "dependencies": {
     "commander": "14.0.3",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@types/node": "25.4.0",
+    "release-it": "^19.0.5",
     "tsx": "4.21.0",
     "typescript": "5.9.3"
   }
